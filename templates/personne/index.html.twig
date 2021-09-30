@@ -28,7 +28,8 @@
                 </td>
                 <td>
                     {% set somme = 0 %}
-                    {% set somme = 2021 - + personne.dateDeNaissance|date('Y') %}
+                    {% set now = 'now' | date('Y') %}
+                    {% set somme = now - + personne.dateDeNaissance|date('Y') %}
                     {{somme}}
                     <span> ans</span>
                 </td>
