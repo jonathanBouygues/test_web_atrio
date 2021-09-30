@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personne index{% endblock %}
+
+{% block body %}
+<main>
+    <h1>Personne index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Date_de_naissance</th>
+                <th>Age</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personne in personnes | sort((a, b) => a.nom <=> b.nom) %}
+            <tr>
+                <td>{{ personne.id }}</td>
+                <td>{{ personne.nom | upper }}</td>
+                <td>{{ personne.prenom | capitalize }}</td>
+                <td>
+                    {{ personne.dateDeNaissance ? personne.dateDeNaissance|date('Y-m-d') : '' }}</td>
+                </td>
+                <td>
+                    {% set somme = 0 %}
+                    {% set somme = 2021 - + personne.dateDeNaissance|date('Y') %}
+                    {{somme}}
+                    <span> ans</span>
+                </td>
+                <td>
+
+                    <a href="{{ path('personne_show', {'id': personne.id}) }}">show</a>
+                    <a href="{{ path('personne_edit', {'id': personne.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('personne_new') }}">Create new</a>
+</main>
+{% endblock %}
